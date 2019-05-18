@@ -21,7 +21,7 @@ def index():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegForm()
-    if request.method == "POST":
+    if request.method == "POST" and form.validate():
         login = request.form['username']
         password = request.form['password']
         firstname = request.form['firstname']
@@ -34,7 +34,6 @@ def register():
 
         if db_cmp_passwd(login, password):
             db_add_user(login, password, firstname, secondname, bday, sex, hobbys, social_link)
-            redirect('/events')
         return redirect(url_for('login'))
     return render_template('register.html', form=form)
 

@@ -1,6 +1,7 @@
 {% from "includes/_formhelpers.html" import render_field %}
 <form method=post action="{{ url_for('register') }}">
   <dl>
+    {{ form.csrf_token }}
     {{ render_field(form.login) }}
     {{ render_field(form.password) }}
     {{ render_field(form.confirm_password) }}
@@ -11,5 +12,5 @@
     {{ render_field(form.hobbys) }}
     {{ render_field(form.social_link) }}
   </dl>
-  <p><input type=submit value=Register></p>
+  <p><input type=submit value=Register>
 </form>

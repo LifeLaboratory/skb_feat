@@ -29,7 +29,7 @@ class RegForm(Form):
         (5, 'Выставка'),
         (6, 'Другое')
     ])
-    social_link = StringField('Социальная сеть', validators=[validators.required(), validators.url()])
+    social_link = StringField('Социальная сеть', [validators.required(), validators.url()])
 
 
 class LoginForm(Form):

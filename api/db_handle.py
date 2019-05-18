@@ -30,7 +30,7 @@ def db_add_user(login, passwd, firstname, secondname, bday, hobby, sex, social_l
     _conn = sqlite3.connect(general_db_file_location)
     _c = _conn.cursor()
 
-    _c.execute("insert into users values(?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    _c.execute("insert into users values(?, ?, ?, ?, ?, ?, ?, ?  ?)",
                (None, login, hashlib.sha256(passwd.encode()).hexdigest(), firstname, secondname, bday, hobby, sex, social_link))
 
     _conn.commit()

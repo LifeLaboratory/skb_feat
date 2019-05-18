@@ -1,50 +1,68 @@
 import sqlite3
 import hashlib
+import psycopg2
 
+from psycopg2.extras import RealDictCursor
 general_db_file_location = "database_files/general.db"
 
 
-def db_cmp_passwd(login, passwd):
-    _conn = sqlite3.connect(general_db_file_location)
-    _c = _conn.cursor()
+def sql_execute(sql_give):
+    conn = psycopg2.connect(dbname='feat', user='feat', password='feat', host='localhost')
+    cursor = conn.cursor(cursor_factory=RealDictCursor)
+    answer = None
 
-    hash = _c.execute("select passwd from users where login = " + login + ";").fetchone()
-    result = hash[0][0] == hashlib.sha256(passwd.encode()).hexdigest()
-    _conn.close()
-
-    return result
-
-
-def db_check_user(login, passwd):
-    _conn = sqlite3.connect(general_db_file_location)
-    _c = _conn.cursor()
-
-    hash = _c.execute("select count(*) from users where login = " + login + ";").fetchall()
-    result = hash[0][0] == hashlib.sha256(passwd.encode()).hexdigest()
-    _conn.close()
-
-    return result
+    # print(sql_give)
+    cursor.execute(sql_give)
+    conn.commit()
+    try:
+        answer = cursor.fetchall()
+    except:
+        pass
+    finally:
+        conn.close()
+        cursor.close()
+        return answer
 
 
-def db_add_user(login, passwd, firstname, secondname, bday, hobby, sex, social_link):
-    _conn = sqlite3.connect(general_db_file_location)
-    _c = _conn.cursor()
+# def db_cmp_passwd(login, passwd):
+#
+#
+#     hash = _c.execute("select passwd from users where login = " + login + ";").fetchone()
+#     result = hash[0][0] == hashlib.sha256(passwd.encode()).hexdigest()
+#     _conn.close()
+#
+#     return result
+#
+#
+# def db_check_user(login, passwd):
+#     _conn = sqlite3.connect(general_db_file_location)
+#     _c = _conn.cursor()
+#
+#     hash = _c.execute("select count(*) from users where login = " + login + ";").fetchall()
+#     result = hash[0][0] == hashlib.sha256(passwd.encode()).hexdigest()
+#     _conn.close()
+#
+#     return result
 
-    _c.execute("insert into users values(?, ?, ?, ?, ?, ?, ?, ?, ?)",
-               (None, login, hashlib.sha256(passwd.encode()).hexdigest(), firstname, secondname, bday, hobby, sex, social_link))
 
-    _conn.commit()
-    _conn.close()
+def db_add_user(data):
 
 
-def db_delete_user(login):
-    _conn = sqlite3.connect(general_db_file_location)
-    _c = _conn.cursor()
+    sql  ="""INSERT INTO user10(login, password,firstname,secondname)
+             VALUES('{login}','{password}','{firstname}','{secondname}')
+    """.format(**data)
+    sql_execute(sql)
 
-    _c.execute("delete from users where login =  '" + login + "'; ")
 
-    _conn.commit()
-    _conn.close()
+
+# def db_delete_user(login):
+#     _conn = sqlite3.connect(general_db_file_location)
+#     _c = _conn.cursor()
+#
+#     _c.execute("delete from users where login =  '" + login + "'; ")
+#
+#     _conn.commit()
+#     _conn.close()
 
 #print(verify("roma_lox", "degenerat"))
 

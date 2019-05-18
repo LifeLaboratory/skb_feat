@@ -1,7 +1,7 @@
 
 from flask import render_template, request, redirect, session, flash, url_for,Flask
-from forms import RegForm, LoginForm
-from db_handle import db_cmp_passwd, db_add_user
+from handlers.forms import RegForm, LoginForm
+from api.db_handle import *
 
 
 app = Flask(__name__, static_url_path='')
@@ -11,10 +11,10 @@ def login():
     form = LoginForm()
     login = request.form['username']
     password = request.form['password']
-    if db_cmp_passwd(login, password):
-        session['log_in'] = True
-    else:
-        flash('Неправильный пароль')
+    # if db_cmp_passwd(login, password):
+    #     session['log_in'] = True
+    # else:
+    #     flash('Неправильный пароль')
     return render_template('index.html')
 #
 # @app.route("/favicon.ico",methods = ["GET"])
@@ -27,7 +27,7 @@ def register():
     if request.method == "POST" :
         data = request.form.to_dict()
         print(request.form.to_dict())
-        db_add_user()
+        db_add_user(data)
         # login = request.form['username']
         # password = request.form['password']
         # firstname = request.form['firstname']

@@ -80,6 +80,20 @@ def get_info():
     return sql_execute(sql)
 
 
+
+def add_person_db(event_id,id_user):
+    sql = """
+            INSERT INTO user_event(event_id,id_user)
+            VALUES({event_id},{id_user})
+    """.format(event_id = event_id, id_user = id_user)
+    sql_execute(sql)
+
+    sql = """UPDATE events SET count_persons =  (SELECT count_persons from events where id = {event_id} ) +1
+    WHERE id = {event_id}
+    """.format(event_id = event_id)
+    sql_execute(sql)
+
+
 # def db_delete_user(login):
 #     _conn = sqlite3.connect(general_db_file_location)
 #     _c = _conn.cursor()

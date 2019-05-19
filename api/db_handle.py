@@ -24,6 +24,7 @@ def sql_execute(sql_give):
         return answer
 
 
+
 # def db_cmp_passwd(login, passwd):
 #
 #
@@ -54,7 +55,12 @@ def db_add_user(data):
     sql_execute(sql)
 
 
-
+def get_id_user(data):
+    sql = """SELECT id
+             from user10
+             where login = '{login}' and 
+             password = '{password}'""".format(**data)
+    return sql_execute(sql)[0]
 # def db_delete_user(login):
 #     _conn = sqlite3.connect(general_db_file_location)
 #     _c = _conn.cursor()

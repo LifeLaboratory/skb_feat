@@ -9,13 +9,13 @@ app = Flask(__name__, static_url_path='')
 @app.route('/', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-    login = request.form['username']
-    password = request.form['password']
+    # login = request.form['username']
+    # password = request.form['password']
     # if db_cmp_passwd(login, password):
     #     session['log_in'] = True
     # else:
     #     flash('Неправильный пароль')
-    return render_template('index.html')
+    return render_template('index.html',form = form)
 #
 # @app.route("/favicon.ico",methods = ["GET"])
 # def favicon():
@@ -43,6 +43,15 @@ def register():
         #     redirect('/events')
         # return redirect(url_for('login'))
     return render_template('register.html', form=form)
+
+@app.route("/login/",methods=["POST"])
+def auth():
+    data = request.form.to_dict()
+    print(data)
+    print(get_id_user(data))
+    return "",200
+
+
 
 
 @app.route('/logout')

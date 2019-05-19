@@ -61,6 +61,25 @@ def get_id_user(data):
              where login = '{login}' and 
              password = '{password}'""".format(**data)
     return sql_execute(sql)[0]
+
+
+def add_info(data):
+    sql = """
+            INSERT INTO events(id,time_start,count_persons,price,description,address,name,date)
+            VALUES({id},'{time_start}','{count_persons}',{price},'{description}','{address}','{name}','{date}'::DATE)
+    """.format(**data)
+    sql_execute(sql)
+
+
+def get_info():
+    sql = """
+          SELECT id,time_start,count_persons,price,description,address,name,date :: text
+          from events
+    
+    """
+    return sql_execute(sql)
+
+
 # def db_delete_user(login):
 #     _conn = sqlite3.connect(general_db_file_location)
 #     _c = _conn.cursor()
@@ -69,6 +88,9 @@ def get_id_user(data):
 #
 #     _conn.commit()
 #     _conn.close()
+
+
+
 
 #print(verify("roma_lox", "degenerat"))
 

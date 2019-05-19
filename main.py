@@ -43,16 +43,23 @@ def register():
         #     redirect('/events')
         # return redirect(url_for('login'))
     return render_template('register.html', form=form)
-
+import requests
 @app.route("/login/",methods=["POST"])
 def auth():
     data = request.form.to_dict()
     print(data)
-    print(get_id_user(data))
-    return "",200
+    id = (get_id_user(data).get("id"))
+    print("https://localhost:5000/getTable/"+ str(id))
+    return requests.get("http://0.0.0.0:5000/getTable/"+ str(id)).text
 
 
-
+@app.route("/getTable/<int:id>",methods=["GET", 'OPTION'])
+def getTable(id):
+    print(id)
+    # if request.method == 'option':
+    #     return {}, 200, {'Access-Control-Allow-Origin': '*'}
+    json.dumps(get_info())
+    return render_template("table_test.html",datas = get_info(),id_user = id), 200, {'Access-Control-Allow-Origin': '*'}
 
 @app.route('/logout')
 def logout():

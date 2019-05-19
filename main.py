@@ -1,7 +1,12 @@
 
 from flask import render_template, request, redirect, session, flash, url_for,Flask
+<<<<<<< HEAD
 from handlers.forms import RegForm, LoginForm
 from api.db_handle import *
+=======
+from forms import RegForm, LoginForm
+from db_handle import db_cmp_passwd, db_add_user
+>>>>>>> remotes/origin/origin
 
 
 app = Flask(__name__, static_url_path='')
@@ -9,6 +14,7 @@ app = Flask(__name__, static_url_path='')
 @app.route('/', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+<<<<<<< HEAD
     # login = request.form['username']
     # password = request.form['password']
     # if db_cmp_passwd(login, password):
@@ -16,6 +22,15 @@ def login():
     # else:
     #     flash('Неправильный пароль')
     return render_template('index.html',form = form)
+=======
+    login = request.form['username']
+    password = request.form['password']
+    if db_cmp_passwd(login, password):
+        session['log_in'] = True
+    else:
+        flash('Неправильный пароль')
+    return render_template('index.html')
+>>>>>>> remotes/origin/origin
 #
 # @app.route("/favicon.ico",methods = ["GET"])
 # def favicon():
@@ -27,7 +42,11 @@ def register():
     if request.method == "POST" :
         data = request.form.to_dict()
         print(request.form.to_dict())
+<<<<<<< HEAD
         db_add_user(data)
+=======
+        db_add_user()
+>>>>>>> remotes/origin/origin
         # login = request.form['username']
         # password = request.form['password']
         # firstname = request.form['firstname']

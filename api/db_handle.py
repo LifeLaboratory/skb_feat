@@ -54,6 +54,11 @@ def db_add_user(data):
     """.format(**data)
     sql_execute(sql)
 
+<<<<<<< HEAD
+=======
+    _c.execute("insert into users values(?, ?, ?, ?, ?, ?, ?, ?  ?)",
+               (None, login, hashlib.sha256(passwd.encode()).hexdigest(), firstname, secondname, bday, hobby, sex, social_link))
+>>>>>>> remotes/origin/origin
 
 def get_id_user(data):
     sql = """SELECT id

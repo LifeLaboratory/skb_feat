@@ -8,21 +8,35 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styleindex.css') }}">
 </head>
+<<<<<<< HEAD
 <div style="background: {{ url_for( 'static', filename='images/backforindex.jpg') }}">
+=======
+<div style="background: {{ url_for('static', filename='images/backforindex.jpg') }}">
+>>>>>>> remotes/origin/origin
 <div class="blok-menu">
 <ul class="menu">
 <li><a href="#">Авторизация</a></li>
 <li><a href="lobby.html">Лобби</a></li>
+<<<<<<< HEAD
 <img src="static/images/901.png" style="margin-left:40px";/>
+=======
+<img src="image/901.png" style="margin-left:40px";/>
+>>>>>>> remotes/origin/origin
 </ul>
 </div>
 <div class="content">
 <h2>Авторизация</h2><br>
 <form method="POST" action="login/">
     <br>
+<<<<<<< HEAD
     <p>Ваш никнейм:<input type="text" required size="25" name="login" minlength="6" maxlength="32" style="margin-left:20px" placeholder="Введите никнейм"></p>
     <br>
     <p>Ваш пароль:<input type="password" required size="25" name="password" minlength="6" maxlength="32" style="margin-left:31px" placeholder="Введите пароль"></p>
+=======
+    <p>Ваш никнейм:<input type="text" required size="25" minlength="6" maxlength="32" style="margin-left:20px" placeholder="Введите никнейм"></p>
+    <br>
+    <p>Ваш пароль:<input type="password" required size="25" minlength="6" maxlength="32" style="margin-left:31px" placeholder="Введите пароль"></p>
+>>>>>>> remotes/origin/origin
     <br>
     <br>
     <br>
